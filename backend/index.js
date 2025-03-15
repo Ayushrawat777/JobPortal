@@ -12,13 +12,15 @@ import path from "path";
 dotenv.config({});
 
 const app = express();
+
 const _dirname=path.resolve();
+
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 const corsOptions = {
-  origin: "https://jobportal-bw2h.onrender.com",
+  origin: "http://localhost:8000",
   credentials: true,
 };
 
@@ -32,7 +34,7 @@ app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
 
-app.use(express.static(path.join(_dirname, "/frontend/dist")));
+app.use(express.static(path.join(_dirname, "frontend", "dist")));
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
 });
